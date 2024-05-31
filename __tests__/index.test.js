@@ -1,4 +1,4 @@
-import search from "../src";
+import search from '../src/index.js';
 
 describe('Test search function: ', () => {
   test('should be deduced [], at emptiness', () => {
@@ -9,9 +9,18 @@ describe('Test search function: ', () => {
     const docs = [
       { id: 'doc1', text: "I can't shoot straight unless I've had a pint!" },
       { id: 'doc2', text: "Don't shoot shoot shoot that thing at me." },
-      { id: 'doc3', text: "I'm your shooter." }
+      { id: 'doc3', text: "I'm your shooter." },
     ];
 
     expect(search(docs, 'shoot')).toEqual(['doc1', 'doc2']);
+  });
+
+  test('should find words regardless of punctuation marks', () => {
+    const docs = [
+      { id: 'doc1', text: "I can't shoot straight unless I've had a pint!" },
+    ];
+
+    expect(search(docs, 'pint')).toEqual(['doc1']);
+    expect(search(docs, 'pint!')).toEqual(['doc1']);
   });
 });

@@ -1,6 +1,9 @@
 const search = (docs, token) => {
-  const term = token.match(/\w+/g);
-  const regexp = new RegExp(`\\b${term}\\b`, 'i');
+  const term = token
+    .split(' ')
+    .map((query) => `\\b${query.match(/\w+/g)}\\b`)
+    .join('|');
+  const regexp = new RegExp(term, 'i');
   const result = docs.reduce((acc1, item) => {
     const { id } = item;
     const count = item.text.split(' ').reduce((acc2, el) => (el.match(regexp) ? acc2 + 1 : acc2), 0);

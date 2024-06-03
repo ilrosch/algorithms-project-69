@@ -11,7 +11,7 @@ const search = (docs, token) => {
       if (!acc[key]) {
         acc[key] = {
           docs: [],
-          counter: {}
+          counter: {},
         };
       }
 
@@ -42,7 +42,7 @@ const search = (docs, token) => {
   const tfIdf = Object.entries(data).reduce((acc, [key, value]) => {
     const tf = (value / sizes[key]);
     const idf = Math.log(all) / Math.log(docs.length);
-    acc[key] = Number((tf * (isNaN(idf) ? 1 : idf)).toFixed(6));
+    acc[key] = Number((tf * (Number.isNaN(idf) ? 1 : idf)).toFixed(6));
     return acc;
   }, {});
 

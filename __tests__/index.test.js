@@ -46,11 +46,11 @@ describe('Test search function: ', () => {
 
   test('should corresponds to the TF-IDF relevance metric', () => {
     const docs = [
-      { id: 'doc1', text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Etiam tempor orci eu lobortis elementum nibh tellus molestie nunc." },
-      { id: 'doc2', text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Etiam non quam lacus suspendisse faucibus interdum posuere lorem ipsum." },
-      { id: 'doc3', text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Metus dictum at tempor commodo ullamcorper." },
+      { id: 'doc1', text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Etiam tempor orci eu lobortis elementum nibh tellus molestie nunc.' },
+      { id: 'doc2', text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Etiam non quam lacus suspendisse faucibus interdum posuere lorem ipsum.' },
+      { id: 'doc3', text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Metus dictum at tempor commodo ullamcorper.' },
     ];
 
-    expect(search(docs, 'lorem ipsum')).toEqual(['doc2','doc3','doc1']);
+    expect(search(docs, 'lorem ipsum')).toEqual(['doc2', 'doc3', 'doc1']);
   });
 });

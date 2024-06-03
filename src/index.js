@@ -1,5 +1,4 @@
 const search = (docs, token) => {
-  console.log(docs, token);
   const term = token
     .split(' ')
     .flatMap((query) => query.toLowerCase().match(/\w+/g));
@@ -46,8 +45,6 @@ const search = (docs, token) => {
     acc[key] = Number((tf * (Number.isNaN(idf) ? 1 : idf)).toFixed(2));
     return acc;
   }, {});
-
-  console.log(tfIdf);
 
   const result = Object.entries(tfIdf)
     .sort(([, a], [, b]) => b - a)

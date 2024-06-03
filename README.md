@@ -1,14 +1,14 @@
-# Поисковый движок
+# Search engine
 
 [![Actions Status](https://github.com/ilrosch/algorithms-project-69/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/ilrosch/algorithms-project-69/actions)
 
-Поисковый движок — проект, в котором мы изучим основные алгоритмы и структуры данных в поисковых системах. На практике применим различные методы поиска, индексирование, ранжирование, метрики релевантности и построим обратный индекс.
+Search Engine - a project in which we will learn the basic algorithms and data structures in search engines. We will practice various search methods, indexing, ranking, relevance metrics, and reverse index building.
 
-## Описание
+## Description
 
-Всемирную сеть сложно представить без поисковиков. Чтобы они эффективно работали, используют разные поисковые движки. В этом проекте мы напишем собственную реализацию поискового движка.
+The World Wide Web is hard to imagine without search engines. To make them work effectively, they use different search engines. In this project we will write our own implementation of a search engine.
 
-## Пример использования
+## Usage example
 
 ```console
   import search from '@hexlet-code';

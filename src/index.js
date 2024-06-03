@@ -3,6 +3,7 @@ const search = (docs, token) => {
     .split(' ')
     .flatMap((query) => query.toLowerCase().match(/\w+/g));
 
+  const sizes = {};
   const index = docs.reduce((acc, { id, text }) => {
     text.split(' ').forEach((word) => {
       const key = word.toLowerCase().match(/\w+/g);
@@ -21,6 +22,8 @@ const search = (docs, token) => {
       acc[key].counter[id] = (acc[key].counter[id] ?? 0) + 1;
     });
 
+    sizes[id] = text.split(' ').length;
+
     return acc;
   }, {});
 
@@ -35,7 +38,15 @@ const search = (docs, token) => {
     return acc;
   }, {});
 
-  const result = Object.entries(data)
+  const all = Object.keys(sizes).length;
+  const tfIdf = Object.entries(data).reduce((acc, [key, value]) => {
+    const tf = (value / sizes[key]);
+    const idf = Math.log(all) / Math.log(docs.length);
+    acc[key] = Number((tf * (isNaN(idf) ? 1 : idf)).toFixed(6));
+    return acc;
+  }, {});
+
+  const result = Object.entries(tfIdf)
     .sort(([, a], [, b]) => b - a)
     .map(([id]) => id);
 

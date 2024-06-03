@@ -1,30 +1,43 @@
 const search = (docs, token) => {
   const term = token
     .split(' ')
-    .map((query) => `\\b${query.match(/\w+/g)}\\b`)
-    .join('|');
-  const regexp = new RegExp(term, 'i');
-  const result = docs.reduce((acc1, item) => {
-    const { id } = item;
-    const count = item.text.split(' ').reduce((acc2, el) => (el.match(regexp) ? acc2 + 1 : acc2), 0);
-    if (count === 0) { return acc1; }
-    return [...acc1, { id, count }];
-  }, [])
-    .sort((a, b) => {
-      const countA = a.count;
-      const countB = b.count;
+    .flatMap((query) => query.toLowerCase().match(/\w+/g));
 
-      if (countA > countB) {
-        return -1;
+  const index = docs.reduce((acc, { id, text }) => {
+    text.split(' ').forEach((word) => {
+      const key = word.toLowerCase().match(/\w+/g);
+
+      if (!acc[key]) {
+        acc[key] = {
+          docs: [],
+          counter: {}
+        };
       }
 
-      if (countA < countB) {
-        return 1;
+      if (!acc[key].docs.includes(id)) {
+        acc[key].docs.push(id);
       }
 
-      return 0;
-    })
-    .map(({ id }) => id);
+      acc[key].counter[id] = (acc[key].counter[id] ?? 0) + 1;
+    });
+
+    return acc;
+  }, {});
+
+  const data = term.reduce((acc, key) => {
+    if (!index[key]) { return acc; }
+
+    const ids = index[key].docs;
+    ids.forEach((id) => {
+      acc[id] = (acc[id] ?? 0) + index[key].counter[id];
+    });
+
+    return acc;
+  }, {});
+
+  const result = Object.entries(data)
+    .sort(([, a], [, b]) => b - a)
+    .map(([id]) => id);
 
   return result;
 };

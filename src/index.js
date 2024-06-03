@@ -1,12 +1,12 @@
 const search = (docs, token) => {
   const term = token.match(/\w+/g);
   const regexp = new RegExp(`\\b${term}\\b`, 'i');
-  const search = docs.reduce((acc1, item) => {
+  const result = docs.reduce((acc1, item) => {
     const { id } = item;
-    const count = item.text.split(' ').reduce((acc2, el) => el.match(regexp) ? acc2 + 1 : acc2, 0);
+    const count = item.text.split(' ').reduce((acc2, el) => (el.match(regexp) ? acc2 + 1 : acc2), 0);
+    if (count === 0) { return acc1; }
     return [...acc1, { id, count }];
   }, [])
-    .filter(({ count }) => count !== 0)
     .sort((a, b) => {
       const countA = a.count;
       const countB = b.count;
@@ -23,7 +23,7 @@ const search = (docs, token) => {
     })
     .map(({ id }) => id);
 
-  return search;
+  return result;
 };
 
 export default search;

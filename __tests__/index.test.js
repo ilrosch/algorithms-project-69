@@ -1,6 +1,6 @@
 import search from '../src/index.js';
 
-describe('Test search function: ', () => {
+describe('Test search function:', () => {
   test('should be deduced [], at emptiness', () => {
     expect(search([], 'test')).toEqual([]);
   });
